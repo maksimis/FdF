@@ -1,10 +1,11 @@
 #ifndef FDF_H
-# define FDFH
+# define FDF_H
 
 #include <unistd.h>
 #include <math.h>
-#include	"minilibx-linux/mlx.h"
-#include	"minilibx-linux/mlx_int.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include	"mlx/mlx.h"
 
 #endif //FDF_H
 

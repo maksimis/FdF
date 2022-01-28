@@ -11,7 +11,10 @@ NAME= fdf
 SRC = main.c
 OBJ = $(SRC:%.c=%.o)
 
-LFLAGS = -Lminilibx-linux -lmlx -L$(INCLIB) -lXext -lX11 -lm
+#linux
+#LFLAGS = -Lminilibx-linux -lmlx -L$(INCLIB) -lXext -lX11 -lm
+#macos
+LFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 ifeq ($(UNAME), Darwin)
 	# mac
