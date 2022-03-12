@@ -8,13 +8,16 @@ UNAME := $(shell uname)
 CFLAGS= -I$(INC) -O3 -I.. -g
 
 NAME= fdf
-SRC = main.c
+SRC = main.c read_file.c
 OBJ = $(SRC:%.c=%.o)
+LIBFT_DIRECTORY = ./libft/
+LIBFT = $(LIBFT_DIRECTORY)libft.a
+LIBRARIES = -lft -L$(LIBFT_DIRECTORY)
 
 #linux
 #LFLAGS = -Lminilibx-linux -lmlx -L$(INCLIB) -lXext -lX11 -lm
 #macos
-LFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+LFLAGS = ${LIBRARIES} -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 ifeq ($(UNAME), Darwin)
 	# mac
@@ -31,6 +34,8 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	make -C libft
+	make -C libft dop
 	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 show:
@@ -43,6 +48,13 @@ show:
 	@printf "OBJ		:\n	$(OBJ)\n"
 
 clean:
+	make -C libft fclean
 	rm -f $(NAME) $(OBJ) *~ core *.core
 
+fclean: 	clean
+			${RM} ${NAME}
+
 re: clean all
+
+#libft:
+#	cd ${LIBFT_DIRECTORY} && make && make bonus && make dop && cd ..

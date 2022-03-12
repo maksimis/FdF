@@ -1,5 +1,13 @@
 #include "fdf.h"
 
+int deal_key(int key, void *data)
+{
+	char *str =  ft_itoa(key);
+	write(1, str, ft_strlen(str));
+	free(str);
+	return (0);
+}
+
 int main()
 {
     int	a;
@@ -26,8 +34,30 @@ void	*mlx;
 //   sleep(10);
 	void	*mlx_win;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	mlx_loop(mlx);
+//	mlx = mlx_init();
+//	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+//	mlx_loop(mlx);
+
+	fdf *data;
+
+	data = (fdf *)malloc(sizeof(fdf));
+	read_file("test_maps/10-2.fdf", data);
+
+	int i;
+	int j;
+
+	i = 0;
+	while(i < data->height)
+	{
+		j = 0;
+		while (j < data->width)
+		{
+			deal_key(data->z_matrix[i][j], data);
+			write(1, " ", 1);
+			j++;
+		}
+		write(1, "\n", 1);
+		i++;
+	}
     return(0);
 }
