@@ -4,7 +4,7 @@
 
 float	mod(float x)
 {
-	return (i < 0) ? -x : x;
+	return (x < 0) ? -x : x;
 }
 void	bresenham(float x1, float y1, float x2, float y2, fdf *data)
 {
