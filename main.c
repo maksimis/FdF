@@ -43,21 +43,28 @@ void	*mlx;
 	data = (fdf *)malloc(sizeof(fdf));
 	read_file("test_maps/10-2.fdf", data);
 
-	int i;
-	int j;
+//	int i;
+//	int j;
+//
+//	i = 0;
+//	while(i < data->height)
+//	{
+//		j = 0;
+//		while (j < data->width)
+//		{
+//			deal_key(data->z_matrix[i][j], data);
+//			write(1, " ", 1);
+//			j++;
+//		}
+//		write(1, "\n", 1);
+//		i++;
+//	}
 
-	i = 0;
-	while(i < data->height)
-	{
-		j = 0;
-		while (j < data->width)
-		{
-			deal_key(data->z_matrix[i][j], data);
-			write(1, " ", 1);
-			j++;
-		}
-		write(1, "\n", 1);
-		i++;
-	}
-    return(0);
+
+	data->mlx_ptr = mlx_init();
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FdF");
+	bresenham(10, 20, 300, 400, data);
+	mlx_key_hook(data->win_ptr, deal_key, NULL);
+	mlx_loop(data->mlx_ptr);
+    //return(0);
 }

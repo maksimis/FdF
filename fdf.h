@@ -22,6 +22,7 @@ typedef struct
 }	fdf;
 
 void	read_file(char *file_name, fdf *data);
+void	bresenham(float x1, float y1, float x2, float y2, fdf *data);
 
 #endif //FDF_H
 
