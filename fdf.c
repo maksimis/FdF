@@ -20,8 +20,8 @@ void	bresenham(float x1, float y1, float x2, float y2, fdf *data)
 	while ((int) (x1 - x2) || (int) (y1 - y2))
 	{
 		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x1, y1, 0xffffff);
-		x += x_step;
-		y += y_step;
+		x1 += x_step;
+		y1 += y_step;
 	}
 
 }
