@@ -8,7 +8,7 @@ UNAME := $(shell uname)
 CFLAGS= -I$(INC) -O3 -I.. -g
 
 NAME= fdf
-SRC = main.c read_file.c
+SRC = main.c read_file.c fdf.c
 OBJ = $(SRC:%.c=%.o)
 LIBFT_DIRECTORY = ./libft/
 LIBFT = $(LIBFT_DIRECTORY)libft.a
