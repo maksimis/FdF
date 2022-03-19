@@ -35,7 +35,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft
-	make -C libft dop
 	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 show:
@@ -48,13 +47,11 @@ show:
 	@printf "OBJ		:\n	$(OBJ)\n"
 
 clean:
-	make -C libft fclean
+	make -C libft clean
 	rm -f $(NAME) $(OBJ) *~ core *.core
 
 fclean: 	clean
+			make -C libft fclean
 			${RM} ${NAME}
 
 re: clean all
-
-#libft:
-#	cd ${LIBFT_DIRECTORY} && make && make bonus && make dop && cd ..
