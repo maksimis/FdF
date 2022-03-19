@@ -11,71 +11,77 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-int deal_key(int key, void *data)
+int deal_key(int key, fdf *data)
 {
 	char *str =  ft_itoa(key);
 	write(1, str, ft_strlen(str));
 	free(str);
+	if (key == 126)
+		data->top -= 5;
+	if (key == 125)
+		data->top += 5;
+	if (key == 123)
+		data->left -= 2;
+	if (key == 124)
+		data->left += 2;
+	if (key == 78)
+		data->zoom -= 2;
+	if (key == 69)
+		data->zoom += 2;
+	if (key == 86)
+		data->rotate_x += 0.1;
+	if (key == 88)
+		data->rotate_x -= 0.1;
+	if (key == 91)
+		data->rotate_y += 0.1;
+	if (key == 84)
+		data->rotate_y -= 0.1;
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	draw(data);
 	return (0);
 }
 
-int main()
+void	draw(fdf *data)
 {
-    int	a;
-void	*mlx;
-//void	*win1;
-//  printf("MinilibX Test Program\n");
-//
-//  printf(" => Connection ...");
-//  if (!(mlx = mlx_init()))
-//    {
-//      printf(" !! KO !!\n");
-//      exit(1);
-//    }
-  //printf("OK (use_xshm %d pshm_format %d)\n",((t_xvar *)mlx)->use_xshm,((t_xvar *)mlx)->pshm_format);
+	int x;
+	int y;
 
-//  printf(" => Window1 %dx%d \"Title 1\" ...",300,300);
-//  if (!(win1 = mlx_new_window(mlx,300,300,"Title1")))
-//    {
-//      printf(" !! KO !!\n");
-//      exit(1);
-//    }
-//  printf("OK\n");
-//  mlx_pixel_put(mlx, win1, 10, 10, 0xFFFFFF);
-//   sleep(10);
-	void	*mlx_win;
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (x < data->width - 1)
+				bresenham(x, y, x + 1, y, data);
+			if (y < data->height - 1)
+				bresenham(x, y, x, y + 1, data);
+			x++;
+		}
+		y++;
+	}
+}
 
-//	mlx = mlx_init();
-//	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-//	mlx_loop(mlx);
+int	main(int argc, char **argv)
+{
+ 	fdf *data;
 
-	fdf *data;
+	 if (argc == 2)
+	 {
 
-	data = (fdf *)malloc(sizeof(fdf));
-	read_file("test_maps/10-2.fdf", data);
-
-//	int i;
-//	int j;
-//
-//	i = 0;
-//	while(i < data->height)
-//	{
-//		j = 0;
-//		while (j < data->width)
-//		{
-//			deal_key(data->z_matrix[i][j], data);
-//			write(1, " ", 1);
-//			j++;
-//		}
-//		write(1, "\n", 1);
-//		i++;
-//	}
-
-
-	data->mlx_ptr = mlx_init();
-	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FdF");
-	bresenham(10, 20, 300, 400, data);
-	mlx_key_hook(data->win_ptr, deal_key, NULL);
-	mlx_loop(data->mlx_ptr);
-    //return(0);
+		 data = (fdf *)malloc(sizeof(fdf));
+		 read_file(argv[1], data);
+		 data->left = 200;
+		 data->top = 150;
+		 data->mlx_ptr = mlx_init();
+		 data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FdF");
+		 data->zoom = 20;
+		 data->color = 0xffffff;
+		 data->rotate_x = 0.8;
+		 data->rotate_y = 0.8;
+		 draw(data);
+		 mlx_key_hook(data->win_ptr, deal_key, data);
+		 mlx_loop(data->mlx_ptr);
+	 }
+	return (0);
 }

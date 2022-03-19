@@ -48,7 +48,7 @@ show:
 
 clean:
 	make -C libft clean
-	rm -f $(NAME) $(OBJ) *~ core *.core
+	rm -f $(OBJ) *~ core *.core
 
 fclean: 	clean
 			make -C libft fclean
