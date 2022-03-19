@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmichael <cmichael@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,45 +9,45 @@
 /*   Updated: 2022/03/19 08:56:18 by cmichael         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "fdf.h"
 
-#ifndef FDF_H
-# define FDF_H
-
-# include <unistd.h>
-# include <math.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <ctype.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include	"mlx/mlx.h"
-# include	"libft/libft.h"
-
-typedef struct s_fdf
+void	tryam1(int x, int y, t_fdf *data)
 {
-	int		width;
-	int		height;
-	int		**z_matrix;
-	int		zoom;
-	int		color;
-	int		left;
-	int		top;
-	double	rotate_x;
-	double	rotate_y;
-	float	x1;
-	float	x2;
-	float	y1;
-	float	y2;
+	data->x1 = x;
+	data->y1 = y;
+}
 
-	void	*mlx_ptr;
-	void	*win_ptr;
-}	t_fdf;
+void	tryam2(int x, int y, t_fdf *data)
+{
+	data->x2 = x;
+	data->y2 = y;
+}
 
-void	read_file(char *file_name, t_fdf *data);
-void	bresenham(t_fdf *data);
-void	draw(t_fdf *data);
-float	mod(float x);
-float	max(float a, float b);
-void	iso(float *x, float *y, int z, t_fdf *data);
+void	draw(t_fdf *data)
+{
+	int	x;
+	int	y;
 
-#endif //FDF_H
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (x < data->width - 1)
+			{
+				tryam1(x, y, data);
+				tryam2(x + 1, y, data);
+				bresenham(data);
+			}
+			if (y < data->height - 1)
+			{
+				tryam1(x, y, data);
+				tryam2(x, y + 1, data);
+				bresenham(data);
+			}
+			x++;
+		}
+		y++;
+	}
+}

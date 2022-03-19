@@ -11,11 +11,8 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-int deal_key(int key, fdf *data)
+int	deal_key(int key, t_fdf *data)
 {
-	char *str =  ft_itoa(key);
-	write(1, str, ft_strlen(str));
-	free(str);
 	if (key == 126)
 		data->top -= 5;
 	if (key == 125)
@@ -41,47 +38,25 @@ int deal_key(int key, fdf *data)
 	return (0);
 }
 
-void	draw(fdf *data)
-{
-	int x;
-	int y;
-
-	y = 0;
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data);
-			if (y < data->height - 1)
-				bresenham(x, y, x, y + 1, data);
-			x++;
-		}
-		y++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
- 	fdf *data;
+	t_fdf	*data;
 
-	 if (argc == 2)
-	 {
-
-		 data = (fdf *)malloc(sizeof(fdf));
-		 read_file(argv[1], data);
-		 data->left = 200;
-		 data->top = 150;
-		 data->mlx_ptr = mlx_init();
-		 data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FdF");
-		 data->zoom = 20;
-		 data->color = 0xffffff;
-		 data->rotate_x = 0.8;
-		 data->rotate_y = 0.8;
-		 draw(data);
-		 mlx_key_hook(data->win_ptr, deal_key, data);
-		 mlx_loop(data->mlx_ptr);
-	 }
+	if (argc == 2)
+	{
+		data = (t_fdf *)malloc(sizeof(t_fdf));
+		read_file(argv[1], data);
+		data->left = 200;
+		data->top = 150;
+		data->mlx_ptr = mlx_init();
+		data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FdF");
+		data->zoom = 20;
+		data->color = 0xffffff;
+		data->rotate_x = 0.8;
+		data->rotate_y = 0.8;
+		draw(data);
+		mlx_key_hook(data->win_ptr, deal_key, data);
+		mlx_loop(data->mlx_ptr);
+	}
 	return (0);
 }
