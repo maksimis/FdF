@@ -17,7 +17,7 @@ int	get_height(char *file_name)
 	int		fd;
 	int		height;
 
-	fd = open(file_name, O_RDONLY, 0);
+	fd = open(file_name, O_RDWR, 0);
 	if (fd == -1)
 		return (0);
 	height = 0;
@@ -64,13 +64,15 @@ void	fill_matrix(int *z, char *line)
 	free(strs);
 }
 
-void	read_file(char *file_name, t_fdf *data)
+int	read_file(char *file_name, t_fdf *data)
 {
 	int		fd;
 	char	*line;
 	int		i;
 
 	data->height = get_height(file_name);
+	if (data->height == 0)
+		return (-1);
 	data->width = get_width(file_name);
 	data->z_matrix = (int **) malloc(sizeof(int *) * (data->height + 1));
 	i = 0;
@@ -78,7 +80,7 @@ void	read_file(char *file_name, t_fdf *data)
 		data->z_matrix[i++] = (int *) malloc(sizeof(int) * (data->width + 1));
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd == -1)
-		return ;
+		return (-1);
 	i = 0;
 	while (i < data->height)
 	{
@@ -89,4 +91,5 @@ void	read_file(char *file_name, t_fdf *data)
 	}
 	close(fd);
 	data->z_matrix[i] = NULL;
+	return (1);
 }

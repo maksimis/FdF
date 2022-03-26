@@ -43,7 +43,7 @@ typedef struct s_fdf
 	void	*win_ptr;
 }	t_fdf;
 
-void	read_file(char *file_name, t_fdf *data);
+int		read_file(char *file_name, t_fdf *data);
 void	bresenham(t_fdf *data);
 void	draw(t_fdf *data);
 float	mod(float x);

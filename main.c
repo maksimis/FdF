@@ -68,7 +68,8 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		data = (t_fdf *)malloc(sizeof(t_fdf));
-		read_file(argv[1], data);
+		if (read_file(argv[1], data) == -1)
+			exit(0);
 		data->left = 200;
 		data->top = 150;
 		data->mlx_ptr = mlx_init();
