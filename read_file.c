@@ -58,8 +58,8 @@ void	fill_matrix(int *z, char *line)
 	while (strs[i])
 	{
 		z[i] = ft_atoi(strs[i]);
-		i++;
 		free(strs[i]);
+		i++;
 	}
 	free(strs);
 }
