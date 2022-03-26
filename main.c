@@ -11,8 +11,32 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
+void	free_data(t_fdf *data)
+{
+	int	y;
+
+	y = 0;
+	while (y < data->height)
+	{
+		free(data->z_matrix[y]);
+		y++;
+	}
+	free(data->z_matrix);
+	free(data);
+}
+
+int	exit_programm(t_fdf *data)
+{
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	free_data(data);
+	exit(0);
+}
+
 int	deal_key(int key, t_fdf *data)
 {
+	char *str =  ft_itoa(key);
+	write(1, str, ft_strlen(str));
+	free(str);
 	if (key == 126)
 		data->top -= 5;
 	if (key == 125)
@@ -33,6 +57,8 @@ int	deal_key(int key, t_fdf *data)
 		data->rotate_y += 0.1;
 	if (key == 84)
 		data->rotate_y -= 0.1;
+	if (key == 53)
+		exit_programm(data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	draw(data);
 	return (0);
@@ -56,6 +82,7 @@ int	main(int argc, char **argv)
 		data->rotate_y = 0.8;
 		draw(data);
 		mlx_key_hook(data->win_ptr, deal_key, data);
+		mlx_hook(data->win_ptr, 17, 0L, exit_programm, data);
 		mlx_loop(data->mlx_ptr);
 	}
 	return (0);

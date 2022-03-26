@@ -18,6 +18,8 @@ int	get_height(char *file_name)
 	int		height;
 
 	fd = open(file_name, O_RDONLY, 0);
+	if (fd == -1)
+		return (0);
 	height = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -37,6 +39,8 @@ int	get_width(char *file_name)
 	int		width;
 
 	fd = open(file_name, O_RDONLY, 0);
+	if (fd == -1)
+		return (0);
 	line = get_next_line(fd);
 	width = count_len(line, ' ');
 	free(line);
@@ -73,6 +77,8 @@ void	read_file(char *file_name, t_fdf *data)
 	while (i <= data->height)
 		data->z_matrix[i++] = (int *) malloc(sizeof(int) * (data->width + 1));
 	fd = open(file_name, O_RDONLY, 0);
+	if (fd == -1)
+		return ;
 	i = 0;
 	while (i < data->height)
 	{
