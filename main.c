@@ -11,9 +11,24 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
+void	free_data(t_fdf *data)
+{
+	int	y;
+
+	y = 0;
+	while (y < data->height)
+	{
+		free(data->z_matrix[y]);
+		y++;
+	}
+	free(data->z_matrix);
+	free(data);
+}
+
 int	exit_programm(t_fdf *data)
 {
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	free_data(data);
 	exit(0);
 }
 

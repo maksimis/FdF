@@ -74,7 +74,7 @@ void	read_file(char *file_name, t_fdf *data)
 	data->width = get_width(file_name);
 	data->z_matrix = (int **) malloc(sizeof(int *) * (data->height + 1));
 	i = 0;
-	while (i <= data->height)
+	while (i < data->height)
 		data->z_matrix[i++] = (int *) malloc(sizeof(int) * (data->width + 1));
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd == -1)
