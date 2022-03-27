@@ -43,9 +43,15 @@ int	get_width(char *file_name)
 		return (0);
 	line = get_next_line(fd);
 	width = count_len(line, ' ');
-	if (line[ft_strlen(line) - 1] == ' ')
+	if (line[ft_strlen(line)-2] == ' ')
 		width--;
 	free(line);
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 	close(fd);
 	return (width);
 }
