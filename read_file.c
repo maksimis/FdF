@@ -43,19 +43,21 @@ int	get_width(char *file_name)
 		return (0);
 	line = get_next_line(fd);
 	width = count_len(line, ' ');
+	if (line[ft_strlen(line) - 1] == ' ')
+		width--;
 	free(line);
 	close(fd);
 	return (width);
 }
 
-void	fill_matrix(int *z, char *line)
+void	fill_matrix(int *z, char *line, int width)
 {
 	char	**strs;
 	int		i;
 
 	strs = ft_split(line, ' ');
 	i = 0;
-	while (strs[i])
+	while (i < width)
 	{
 		z[i] = ft_atoi(strs[i]);
 		free(strs[i]);
@@ -77,7 +79,7 @@ int	full_fill_matrix(char *file_name, t_fdf *data)
 	while (i < data->height)
 	{
 		line = get_next_line(fd);
-		fill_matrix(data->z_matrix[i], line);
+		fill_matrix(data->z_matrix[i], line, data->width);
 		free(line);
 		i++;
 	}
