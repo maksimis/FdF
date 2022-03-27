@@ -18,10 +18,11 @@ LIBRARIES = -lft -L$(LIBFT_DIRECTORY)
 #LFLAGS = -Lminilibx-linux -lmlx -L$(INCLIB) -lXext -lX11 -lm
 #macos
 LFLAGS = ${LIBRARIES} -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+CFLAGS = -Wextra -Wall -Werror
 
 ifeq ($(UNAME), Darwin)
 	# mac
-	CC = clang
+	CC = gcc ${CFLAGS}
 else ifeq ($(UNAME), FreeBSD)
 	# FreeBSD
 	CC = clang
