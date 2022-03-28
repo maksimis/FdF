@@ -68,8 +68,9 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		data = (t_fdf *)malloc(sizeof(t_fdf));
+		check_file_name(argv[1]);
 		if (read_file(argv[1], data) == -1)
-			exit(0);
+			error_and_exit();
 		data->left = 200;
 		data->top = 150;
 		data->mlx_ptr = mlx_init();
@@ -83,5 +84,7 @@ int	main(int argc, char **argv)
 		mlx_hook(data->win_ptr, 17, 0L, exit_programm, data);
 		mlx_loop(data->mlx_ptr);
 	}
+	else
+		ft_putendl_fd("Incorrect count of arguments", 0);
 	return (0);
 }

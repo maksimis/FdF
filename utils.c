@@ -32,3 +32,23 @@ void	iso(float *x, float *y, int z, t_fdf *data)
 	*x = (*x - *y) * cos(data->rotate_x);
 	*y = (*x + *y) * sin(data->rotate_y) - z;
 }
+
+void	error_and_exit(void)
+{
+	ft_putendl_fd("Incorrect file", 0);
+	exit(0);
+}
+
+void	check_file_name(char *filename)
+{
+	char	*end;
+
+	end = ft_strrchr(filename, '.');
+	end++;
+	if (ft_strlen(end) != 3 || ft_strncmp(end, "fdf", 3) != 0)
+	{
+		ft_putstr_fd("Incorrect file extension: ", 0);
+		ft_putendl_fd(end, 0);
+		exit(0);
+	}
+}
