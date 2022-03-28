@@ -47,7 +47,7 @@ int	get_width(char *file_name)
 	line = get_next_line(fd);
 	if (!line)
 		return (0);
-	trim = ft_strtrim(line, " ");
+	trim = ft_strtrim(line, " \n");
 	free(line);
 	width = count_len(trim, ' ');
 	free(trim);
@@ -67,7 +67,7 @@ void	fill_matrix(int *z, char *line, int width)
 	int		i;
 	char	*trim;
 
-	trim = ft_strtrim(line, " ");
+	trim = ft_strtrim(line, " \n");
 	strs = ft_split(trim, ' ');
 	free(trim);
 	i = 0;
