@@ -38,6 +38,7 @@ typedef struct s_fdf
 	float	x2;
 	float	y1;
 	float	y2;
+	int		**img;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -51,5 +52,6 @@ float	max(float a, float b);
 void	iso(float *x, float *y, int z, t_fdf *data);
 void	error_and_exit(void);
 void	check_file_name(char *filename);
+void	clear_img(t_fdf *data);
 
 #endif //FDF_H

@@ -61,6 +61,20 @@ int	deal_key(int key, t_fdf *data)
 	return (0);
 }
 
+void init_img(t_fdf *data)
+{
+	int i;
+
+	i = 0;
+	data->img = malloc(sizeof(int *) * 1000);
+	while (i < 1000)
+	{
+		data->img[i] = malloc(sizeof(int) * 1000);
+		i++;
+	}
+	clear_img(data);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	*data;
@@ -79,6 +93,7 @@ int	main(int argc, char **argv)
 		data->color = 0xffffff;
 		data->rotate_x = 0.8;
 		data->rotate_y = 0.8;
+		init_img(data);
 		draw(data);
 		mlx_key_hook(data->win_ptr, deal_key, data);
 		mlx_hook(data->win_ptr, 17, 0L, exit_programm, data);

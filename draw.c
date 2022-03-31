@@ -29,6 +29,7 @@ void	draw(t_fdf *data)
 	int	y;
 
 	y = 0;
+	clear_img(data);
 	while (y < data->height)
 	{
 		x = 0;
@@ -50,4 +51,5 @@ void	draw(t_fdf *data)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 }

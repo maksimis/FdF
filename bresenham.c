@@ -38,6 +38,29 @@ void	count_step(t_fdf *data, float *x_step, float *y_step)
 	*y_step = *y_step / max_step;
 }
 
+void	clear_img(t_fdf *data)
+{
+	int	i;
+	int	l;
+
+	i = 0;
+	while (i < 1000)
+	{
+		l = 0;
+		while (l < 1000)
+		{
+			data->img[i][l] = 0;
+			l++;
+		}
+		i++;
+	}
+}
+
+void pixel_put(t_fdf *data, int x, int y, int color)
+{
+	data->img[x][y] = color;
+}
+
 void	bresenham(t_fdf *data)
 {
 	float	x_step;
@@ -58,8 +81,7 @@ void	bresenham(t_fdf *data)
 	move(data);
 	while ((int)(data->x1 - data->x2) || (int)(data->y1 - data->y2))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr,
-			data->x1, data->y1, data->color);
+		pixel_put(data, data->x1, data->y1, data->color);
 		data->x1 += x_step;
 		data->y1 += y_step;
 	}
