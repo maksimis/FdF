@@ -23,13 +23,26 @@ void	tryam2(int x, int y, t_fdf *data)
 	data->y2 = y;
 }
 
+void	draw_background(t_fdf *fdf)
+{
+	int	i;
+	int	*img;
+
+	i = 0;
+	img = (int *)(fdf->addr);
+	while (i < 2000 * 2000)
+	{
+		img[i] = 0x00;
+		++i;
+	}
+}
+
 void	draw(t_fdf *data)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	clear_img(data);
 	while (y < data->height)
 	{
 		x = 0;
@@ -51,5 +64,4 @@ void	draw(t_fdf *data)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 }

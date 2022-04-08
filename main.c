@@ -61,18 +61,19 @@ int	deal_key(int key, t_fdf *data)
 	return (0);
 }
 
-void init_img(t_fdf *data)
+void	init(t_fdf *data)
 {
-	int i;
-
-	i = 0;
-	data->img = malloc(sizeof(int *) * 1000);
-	while (i < 1000)
-	{
-		data->img[i] = malloc(sizeof(int) * 1000);
-		i++;
-	}
-	clear_img(data);
+	data->left = 200;
+	data->top = 150;
+	data->mlx_ptr = mlx_init();
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 2000, 2000, "FdF");
+	data->zoom = 20;
+	data->color = 0xffffff;
+	data->rotate_x = 0.8;
+	data->rotate_y = 0.8;
+	data->img_ptr = mlx_new_image(data->mlx_ptr, 2000, 2000);
+	data->addr = mlx_get_data_addr(data->img_ptr,
+			&data->bpp, &data->line_len, &data->endian);
 }
 
 int	main(int argc, char **argv)
@@ -85,16 +86,11 @@ int	main(int argc, char **argv)
 		check_file_name(argv[1]);
 		if (read_file(argv[1], data) == -1)
 			error_and_exit();
-		data->left = 200;
-		data->top = 150;
-		data->mlx_ptr = mlx_init();
-		data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FdF");
-		data->zoom = 20;
-		data->color = 0xffffff;
-		data->rotate_x = 0.8;
-		data->rotate_y = 0.8;
-		init_img(data);
+		init(data);
+		draw_background(data);
 		draw(data);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+			data->img_ptr, 0, 0);
 		mlx_key_hook(data->win_ptr, deal_key, data);
 		mlx_hook(data->win_ptr, 17, 0L, exit_programm, data);
 		mlx_loop(data->mlx_ptr);
