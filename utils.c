@@ -44,10 +44,19 @@ void	check_file_name(char *filename)
 	char	*end;
 
 	end = ft_strrchr(filename, '.');
-	end++;
-	if (ft_strlen(end) != 3 || ft_strncmp(end, "fdf", 3) != 0)
+	if (end)
 	{
-		ft_putstr_fd("Incorrect file extension: ", 0);
+		end++;
+		if (end && (ft_strlen(end) != 3 || ft_strncmp(end, "fdf", 3) != 0))
+		{
+			ft_putstr_fd("Incorrect file extension: ", 0);
+			ft_putendl_fd(end, 0);
+			exit(0);
+		}
+	}
+	else
+	{
+		ft_putstr_fd("This file not *.fdf file", 0);
 		ft_putendl_fd(end, 0);
 		exit(0);
 	}
