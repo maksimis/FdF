@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmichael <cmichael@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,47 +11,15 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-float	max(float a, float b)
+void	error_and_exit(void)
 {
-	if (a > b)
-		return (a);
-	else
-		return (b);
+	ft_putendl_fd("Incorrect file", 0);
+	exit(0);
 }
 
-float	mod(float x)
+int	exit_programm(t_fdf *data)
 {
-	if (x < 0)
-		return (-x);
-	else
-		return (x);
-}
-
-void	iso(float *x, float *y, int z, t_fdf *data)
-{
-	*x = (*x - *y) * cos(data->rotate_x);
-	*y = (*x + *y) * sin(data->rotate_y) - z;
-}
-
-void	check_file_name(char *filename)
-{
-	char	*end;
-
-	end = ft_strrchr(filename, '.');
-	if (end)
-	{
-		end++;
-		if (end && (ft_strlen(end) != 3 || ft_strncmp(end, "fdf", 3) != 0))
-		{
-			ft_putstr_fd("Incorrect file extension: ", 0);
-			ft_putendl_fd(end, 0);
-			exit(0);
-		}
-	}
-	else
-	{
-		ft_putstr_fd("This file not *.fdf file", 0);
-		ft_putendl_fd(end, 0);
-		exit(0);
-	}
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	free_data(data);
+	exit(0);
 }

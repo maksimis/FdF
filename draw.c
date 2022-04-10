@@ -30,7 +30,7 @@ void	draw_background(t_fdf *fdf)
 
 	i = 0;
 	img = (int *)(fdf->addr);
-	while (i < 2000 * 2000)
+	while (i < SCRN_HEIGHT * SCRN_HEIGHT)
 	{
 		img[i] = 0x00;
 		++i;

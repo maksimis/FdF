@@ -22,6 +22,8 @@
 # include <sys/types.h>
 # include	"mlx/mlx.h"
 # include	"libft/libft.h"
+# define SCRN_HEIGHT		1050
+# define SCRN_WIDTH			1400
 
 typedef struct s_fdf
 {
@@ -57,5 +59,7 @@ void	iso(float *x, float *y, int z, t_fdf *data);
 void	error_and_exit(void);
 void	check_file_name(char *filename);
 void	draw_background(t_fdf *fdf);
+int		exit_programm(t_fdf *data);
+void	free_data(t_fdf *data);
 
 #endif //FDF_H
