@@ -48,13 +48,13 @@ int	deal_key(int key, t_fdf *data)
 	if (key == 69)
 		data->zoom += 2;
 	if (key == 86)
-		data->rotate_x += 0.1;
+		data->rotate_x += 0.05;
 	if (key == 88)
-		data->rotate_x -= 0.1;
+		data->rotate_x -= 0.05;
 	if (key == 91)
-		data->rotate_y += 0.1;
+		data->rotate_y += 0.05;
 	if (key == 84)
-		data->rotate_y -= 0.1;
+		data->rotate_y -= 0.05;
 	if (key == 53)
 		exit_programm(data);
 	create_image(data);
@@ -63,14 +63,14 @@ int	deal_key(int key, t_fdf *data)
 
 void	init(t_fdf *data)
 {
-	data->left = 0;
-	data->top = 0;
+	data->left = 200;
+	data->top = 100;
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			SCRN_WIDTH, SCRN_HEIGHT, "FdF");
 	data->zoom = 20;
 	data->color = 0xffffff;
-	data->rotate_x = 0.8;
+	data->rotate_x = 1.0;
 	data->rotate_y = 0.8;
 	data->img_ptr = mlx_new_image(data->mlx_ptr, SCRN_WIDTH, SCRN_HEIGHT);
 	data->addr = mlx_get_data_addr(data->img_ptr,

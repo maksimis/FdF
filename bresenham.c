@@ -75,7 +75,7 @@ void	bresenham(t_fdf *data)
 	move(data);
 	while ((int)(data->x1 - data->x2) || (int)(data->y1 - data->y2))
 	{
-		if (data->x1 <= SCRN_WIDTH && data->y1 <= SCRN_HEIGHT)
+		if (data->x1 > 0 && data->x1 < SCRN_WIDTH && data->y1> 0 && data->y1 < SCRN_HEIGHT)
 			img_pix_put(data, data->x1, data->y1, data->color);
 		data->x1 += x_step;
 		data->y1 += y_step;
